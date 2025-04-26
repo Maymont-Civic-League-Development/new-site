@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About Us">
+  <section class="about-hero">
+    <h1>Our Story</h1>
+  </section>
+
+  <section class="about-content">
+    <div class="about-text">
+      <h2>Connecting with Nature</h2>
+      <p>
+        We believe in the power of nature to heal, inspire, and transform. Our mission is to create spaces
+        where people can connect with the natural world and find peace in its beauty.
+      </p>
+      <p>
+        Founded in 2024, we've been dedicated to preserving natural spaces and sharing their wonders with
+        the world. Our team of nature enthusiasts works tirelessly to maintain and protect these special
+        places.
+      </p>
+    </div>
+
+    <div class="values">
+      <h2>Our Values</h2>
+      <div class="value-cards">
+        <div class="value-card">
+          <h3>Sustainability</h3>
+          <p>We practice and promote sustainable living in harmony with nature.</p>
+        </div>
+        <div class="value-card">
+          <h3>Conservation</h3>
+          <p>Protecting natural spaces for future generations is our priority.</p>
+        </div>
+        <div class="value-card">
+          <h3>Education</h3>
+          <p>Sharing knowledge about nature and environmental stewardship.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .about-hero {
+    background: linear-gradient(rgba(44, 85, 48, 0.7), rgba(44, 85, 48, 0.7)),
+                url('/images/about-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-background);
+    margin-bottom: 4rem;
+  }
+
+  .about-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .about-text {
+    margin-bottom: 4rem;
+  }
+
+  .about-text h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .about-text p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .values {
+    margin-top: 4rem;
+  }
+
+  .values h2 {
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+  }
+
+  .value-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .value-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .value-card h3 {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .about-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .about-content {
+      padding: 0 1rem;
+    }
+
+    .value-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style> 

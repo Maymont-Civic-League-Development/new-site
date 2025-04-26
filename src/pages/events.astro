@@ -1,0 +1,339 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Events & Happenings">
+  <section class="events-hero">
+    <div class="hero-content">
+      <h1>Events & Happenings</h1>
+      <p class="subtitle">Discover upcoming events and experiences</p>
+    </div>
+  </section>
+
+  <section class="events-content">
+    <div class="events-filters">
+      <div class="filter-group">
+        <label for="month">Filter by Month</label>
+        <select id="month" class="filter-select">
+          <option value="all">All Months</option>
+          <option value="may">May 2024</option>
+          <option value="june">June 2024</option>
+          <option value="july">July 2024</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="category">Filter by Category</label>
+        <select id="category" class="filter-select">
+          <option value="all">All Categories</option>
+          <option value="workshops">Workshops</option>
+          <option value="tours">Guided Tours</option>
+          <option value="meditation">Meditation</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="events-list">
+      <div class="event-item">
+        <div class="event-date">
+          <span class="date-day">15</span>
+          <span class="date-month">May</span>
+        </div>
+        <div class="event-details">
+          <h3>Guided Forest Walk</h3>
+          <div class="event-meta">
+            <span class="event-time">9:00 AM - 12:00 PM</span>
+            <span class="event-location">Main Trailhead</span>
+            <span class="event-category">Guided Tour</span>
+          </div>
+          <p class="event-description">
+            Join our expert guide for a morning walk through the ancient forest trails. Learn about local flora and fauna while enjoying the peaceful surroundings.
+          </p>
+          <div class="event-actions">
+            <a href="#" class="event-button primary">Register Now</a>
+            <a href="#" class="event-button secondary">Add to Calendar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date">
+          <span class="date-day">22</span>
+          <span class="date-month">May</span>
+        </div>
+        <div class="event-details">
+          <h3>Wildlife Photography Workshop</h3>
+          <div class="event-meta">
+            <span class="event-time">2:00 PM - 5:00 PM</span>
+            <span class="event-location">Visitor Center</span>
+            <span class="event-category">Workshop</span>
+          </div>
+          <p class="event-description">
+            Learn to capture the beauty of nature with professional photographer John Smith. This workshop covers basic to advanced techniques for wildlife photography.
+          </p>
+          <div class="event-actions">
+            <a href="#" class="event-button primary">Register Now</a>
+            <a href="#" class="event-button secondary">Add to Calendar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date">
+          <span class="date-day">30</span>
+          <span class="date-month">May</span>
+        </div>
+        <div class="event-details">
+          <h3>Sunset Meditation</h3>
+          <div class="event-meta">
+            <span class="event-time">6:30 PM - 8:00 PM</span>
+            <span class="event-location">Meditation Garden</span>
+            <span class="event-category">Meditation</span>
+          </div>
+          <p class="event-description">
+            Experience peace and tranquility with our guided meditation session. Perfect for beginners and experienced practitioners alike.
+          </p>
+          <div class="event-actions">
+            <a href="#" class="event-button primary">Register Now</a>
+            <a href="#" class="event-button secondary">Add to Calendar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .events-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('/images/events-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    position: relative;
+  }
+
+  .events-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .events-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .events-content {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+  }
+
+  .events-filters {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-group {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .filter-select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
+  }
+
+  .events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .event-item {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+  }
+
+  .event-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .event-date {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+  }
+
+  .date-day {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .date-month {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .event-details {
+    padding: 2rem;
+    flex: 1;
+  }
+
+  .event-details h3 {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .event-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .event-meta span {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .event-description {
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .event-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .event-button {
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .event-button.primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .event-button.secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+
+  .event-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .event-button.primary:hover {
+    background-color: var(--color-secondary);
+  }
+
+  .event-button.secondary:hover {
+    background-color: var(--color-background);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .event-item {
+      flex-direction: column;
+    }
+
+    .event-date {
+      flex-direction: row;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .date-day {
+      font-size: 2rem;
+    }
+
+    .event-actions {
+      flex-direction: column;
+    }
+
+    .event-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style> 

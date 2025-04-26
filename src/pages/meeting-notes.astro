@@ -1,0 +1,401 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Meeting Notes">
+  <section class="notes-hero">
+    <div class="hero-content">
+      <h1>Meeting Notes</h1>
+      <p class="subtitle">Archive of our organization's meetings and discussions</p>
+    </div>
+  </section>
+
+  <section class="notes-content">
+    <div class="notes-filters">
+      <div class="filter-group">
+        <label for="year">Filter by Year</label>
+        <select id="year" class="filter-select">
+          <option value="all">All Years</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="category">Filter by Category</label>
+        <select id="category" class="filter-select">
+          <option value="all">All Categories</option>
+          <option value="conservation">Conservation</option>
+          <option value="maintenance">Maintenance</option>
+          <option value="planning">Planning</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="notes-grid">
+      <article class="note-card">
+        <div class="note-date">
+          <span class="date-day">10</span>
+          <span class="date-month">May</span>
+          <span class="date-year">2024</span>
+        </div>
+        <div class="note-content">
+          <div class="note-meta">
+            <span class="note-category">Conservation</span>
+            <span class="note-duration">2 hours</span>
+          </div>
+          <h2>Spring Conservation Planning</h2>
+          <p class="note-excerpt">
+            Detailed discussion of upcoming conservation projects, including habitat restoration and community engagement initiatives. Key decisions made regarding resource allocation and volunteer coordination.
+          </p>
+          <div class="note-actions">
+            <a href="/meeting-notes/spring-conservation-planning" class="note-button primary">Read Full Notes</a>
+            <a href="#" class="note-button secondary">Download PDF</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="note-card">
+        <div class="note-date">
+          <span class="date-day">24</span>
+          <span class="date-month">Apr</span>
+          <span class="date-year">2024</span>
+        </div>
+        <div class="note-content">
+          <div class="note-meta">
+            <span class="note-category">Maintenance</span>
+            <span class="note-duration">1.5 hours</span>
+          </div>
+          <h2>Trail Maintenance Review</h2>
+          <p class="note-excerpt">
+            Comprehensive review of trail conditions across all major paths. Created maintenance schedule and prioritized repairs. Discussed safety measures and visitor guidelines.
+          </p>
+          <div class="note-actions">
+            <a href="/meeting-notes/trail-maintenance-review" class="note-button primary">Read Full Notes</a>
+            <a href="#" class="note-button secondary">Download PDF</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="note-card">
+        <div class="note-date">
+          <span class="date-day">15</span>
+          <span class="date-month">Mar</span>
+          <span class="date-year">2024</span>
+        </div>
+        <div class="note-content">
+          <div class="note-meta">
+            <span class="note-category">Planning</span>
+            <span class="note-duration">2.5 hours</span>
+          </div>
+          <h2>Annual Budget Planning</h2>
+          <p class="note-excerpt">
+            Review of current year's budget and planning for next fiscal year. Discussed funding priorities, new initiatives, and resource allocation strategies.
+          </p>
+          <div class="note-actions">
+            <a href="/meeting-notes/annual-budget-planning" class="note-button primary">Read Full Notes</a>
+            <a href="#" class="note-button secondary">Download PDF</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="pagination">
+      <a href="#" class="pagination-button">Previous</a>
+      <div class="pagination-numbers">
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+      </div>
+      <a href="#" class="pagination-button">Next</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .notes-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('/images/notes-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    position: relative;
+  }
+
+  .notes-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .notes-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .notes-content {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+  }
+
+  .notes-filters {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-group {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .filter-select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
+  }
+
+  .notes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .note-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+  }
+
+  .note-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .note-date {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+  }
+
+  .date-day {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .date-month {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .date-year {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  .note-content {
+    padding: 2rem;
+    flex: 1;
+  }
+
+  .note-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .note-meta span {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .note-category {
+    background-color: var(--color-background);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .note-content h2 {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .note-excerpt {
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .note-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .note-button {
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .note-button.primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .note-button.secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+
+  .note-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .note-button.primary:hover {
+    background-color: var(--color-secondary);
+  }
+
+  .note-button.secondary:hover {
+    background-color: var(--color-background);
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .pagination-button {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .pagination-button:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .pagination-numbers {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .pagination-numbers a {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .pagination-numbers a:hover,
+  .pagination-numbers a.active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .note-card {
+      flex-direction: column;
+    }
+
+    .note-date {
+      flex-direction: row;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .date-day {
+      font-size: 2rem;
+    }
+
+    .note-actions {
+      flex-direction: column;
+    }
+
+    .note-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style> 
