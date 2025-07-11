@@ -1,0 +1,62 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "events"
+    label: "Events"
+    folder: "src/content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "event" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Time", name: "time", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Workshop", "Guided Tour", "Meditation", "Conservation"] }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Registration URL", name: "registration_url", widget: "string", required: false }
+
+  - name: "meeting-notes"
+    label: "Meeting Notes"
+    folder: "src/content/meeting-notes"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "meeting-note" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Duration", name: "duration", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Conservation", "Maintenance", "Planning", "General"] }
+      - { label: "Attendees", name: "attendees", widget: "list", field: { label: "Attendee", name: "attendee", widget: "string" } }
+      - { label: "Overview", name: "overview", widget: "text" }
+      - { label: "Key Points", name: "key_points", widget: "list", field: { label: "Point", name: "point", widget: "text" }, required: false }
+      - { label: "Action Items", name: "action_items", widget: "list", field: { label: "Action", name: "action", widget: "text" } }
+      - { label: "Next Steps", name: "next_steps", widget: "list", field: { label: "Step", name: "step", widget: "text" } }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - file: "src/content/pages/home.md"
+        label: "Home Page"
+        name: "home"
+        fields:
+          - { label: "Hero Title", name: "hero_title", widget: "string" }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "string" }
+          - { label: "Hero Image", name: "hero_image", widget: "image" }
+          - { label: "Features", name: "features", widget: "list", field: { label: "Feature", name: "feature", widget: "object", fields: [{ label: "Title", name: "title", widget: "string" }, { label: "Description", name: "description", widget: "text" }] } }
+
+      - file: "src/content/pages/about.md"
+        label: "About Page"
+        name: "about"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Content", name: "body", widget: "markdown" }
+          - { label: "Values", name: "values", widget: "list", field: { label: "Value", name: "value", widget: "object", fields: [{ label: "Title", name: "title", widget: "string" }, { label: "Description", name: "description", widget: "text" }] } } 

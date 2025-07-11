@@ -6,9 +6,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "cms": "npx decap-server"
   },
   "dependencies": {
-    "astro": "^5.7.4"
+    "astro": "^5.7.4",
+    "decap-cms": "^3.7.2",
+    "zod": "^3.23.8"
   }
 }

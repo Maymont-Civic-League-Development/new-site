@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all events from the content collection
+const events = await getCollection('events');
+// Sort events by date (newest first)
+const sortedEvents = events.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
 <Layout title="Events & Happenings">
@@ -33,71 +39,31 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <div class="events-list">
-      <div class="event-item">
-        <div class="event-date">
-          <span class="date-day">15</span>
-          <span class="date-month">May</span>
-        </div>
-        <div class="event-details">
-          <h3>Guided Forest Walk</h3>
-          <div class="event-meta">
-            <span class="event-time">9:00 AM - 12:00 PM</span>
-            <span class="event-location">Main Trailhead</span>
-            <span class="event-category">Guided Tour</span>
+      {sortedEvents.map((event) => (
+        <div class="event-item">
+          <div class="event-date">
+            <span class="date-day">{new Date(event.data.date).getDate()}</span>
+            <span class="date-month">{new Date(event.data.date).toLocaleDateString('en-US', { month: 'short' })}</span>
           </div>
-          <p class="event-description">
-            Join our expert guide for a morning walk through the ancient forest trails. Learn about local flora and fauna while enjoying the peaceful surroundings.
-          </p>
-          <div class="event-actions">
-            <a href="#" class="event-button primary">Register Now</a>
-            <a href="#" class="event-button secondary">Add to Calendar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="event-item">
-        <div class="event-date">
-          <span class="date-day">22</span>
-          <span class="date-month">May</span>
-        </div>
-        <div class="event-details">
-          <h3>Wildlife Photography Workshop</h3>
-          <div class="event-meta">
-            <span class="event-time">2:00 PM - 5:00 PM</span>
-            <span class="event-location">Visitor Center</span>
-            <span class="event-category">Workshop</span>
-          </div>
-          <p class="event-description">
-            Learn to capture the beauty of nature with professional photographer John Smith. This workshop covers basic to advanced techniques for wildlife photography.
-          </p>
-          <div class="event-actions">
-            <a href="#" class="event-button primary">Register Now</a>
-            <a href="#" class="event-button secondary">Add to Calendar</a>
+          <div class="event-details">
+            <h3>{event.data.title}</h3>
+            <div class="event-meta">
+              <span class="event-time">{event.data.time}</span>
+              <span class="event-location">{event.data.location}</span>
+              <span class="event-category">{event.data.category}</span>
+            </div>
+            <p class="event-description">
+              {event.data.description}
+            </p>
+            <div class="event-actions">
+              {event.data.registration_url && (
+                <a href={event.data.registration_url} class="event-button primary">Register Now</a>
+              )}
+              <a href="#" class="event-button secondary">Add to Calendar</a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="event-item">
-        <div class="event-date">
-          <span class="date-day">30</span>
-          <span class="date-month">May</span>
-        </div>
-        <div class="event-details">
-          <h3>Sunset Meditation</h3>
-          <div class="event-meta">
-            <span class="event-time">6:30 PM - 8:00 PM</span>
-            <span class="event-location">Meditation Garden</span>
-            <span class="event-category">Meditation</span>
-          </div>
-          <p class="event-description">
-            Experience peace and tranquility with our guided meditation session. Perfect for beginners and experienced practitioners alike.
-          </p>
-          <div class="event-actions">
-            <a href="#" class="event-button primary">Register Now</a>
-            <a href="#" class="event-button secondary">Add to Calendar</a>
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   </section>
 </Layout>

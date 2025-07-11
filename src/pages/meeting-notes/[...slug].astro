@@ -1,0 +1,339 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const meetingNotes = await getCollection('meeting-notes');
+  return meetingNotes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await note.render();
+---
+
+<Layout title={`${note.data.title} - Meeting Notes`}>
+  <section class="meeting-hero">
+    <div class="hero-content">
+      <div class="meeting-meta">
+        <span class="meeting-category">{note.data.category}</span>
+        <span class="meeting-date">{new Date(note.data.date).toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })}</span>
+        <span class="meeting-duration">{note.data.duration}</span>
+      </div>
+      <h1>{note.data.title}</h1>
+      <p class="meeting-location">Main Conference Room, MCL</p>
+    </div>
+  </section>
+
+  <section class="meeting-content">
+    <div class="meeting-details">
+      <div class="details-section">
+        <h2>Meeting Overview</h2>
+        <p>{note.data.overview}</p>
+      </div>
+
+      <div class="details-section">
+        <h2>Attendees</h2>
+        <ul class="attendee-list">
+          {note.data.attendees.map((attendee) => (
+            <li>{attendee}</li>
+          ))}
+        </ul>
+      </div>
+
+      {note.data.key_points && note.data.key_points.length > 0 && (
+        <div class="details-section">
+          <h2>Key Discussion Points</h2>
+          <div class="discussion-points">
+            <div class="point">
+              <h3>Key Points</h3>
+              <ul>
+                {note.data.key_points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div class="details-section">
+        <h2>Action Items</h2>
+        <div class="action-items">
+          <div class="action">
+            <h3>Immediate Actions</h3>
+            <ul>
+              {note.data.action_items.map((action) => (
+                <li>{action}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-section">
+        <h2>Next Steps</h2>
+        <ul class="next-steps">
+          {note.data.next_steps.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="meeting-actions">
+      <a href="#" class="action-button primary">Download PDF</a>
+      <a href="/meeting-notes" class="action-button secondary">Back to All Notes</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .meeting-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('/images/meeting-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    position: relative;
+    padding: 4rem 2rem;
+  }
+
+  .meeting-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .meeting-meta {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .meeting-meta span {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+  }
+
+  .meeting-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .meeting-location {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+
+  .meeting-content {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+  }
+
+  .meeting-details {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 3rem;
+  }
+
+  .details-section {
+    margin-bottom: 3rem;
+  }
+
+  .details-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .details-section h2 {
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-background);
+  }
+
+  .details-section p {
+    color: var(--color-text);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .attendee-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .attendee-list li {
+    background-color: var(--color-background);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+  }
+
+  .discussion-points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .point h3 {
+    color: var(--color-secondary);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .point ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    color: var(--color-text);
+  }
+
+  .point li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .action-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .action h3 {
+    color: var(--color-secondary);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .action ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    color: var(--color-text);
+  }
+
+  .action li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .next-steps {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    color: var(--color-text);
+  }
+
+  .next-steps li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .meeting-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  .action-button {
+    padding: 1rem 2rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .action-button.primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .action-button.secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+
+  .action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .action-button.primary:hover {
+    background-color: var(--color-secondary);
+  }
+
+  .action-button.secondary:hover {
+    background-color: var(--color-background);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .meeting-hero h1 {
+      font-size: 2rem;
+    }
+
+    .meeting-meta {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .meeting-details {
+      padding: 2rem;
+    }
+
+    .meeting-actions {
+      flex-direction: column;
+    }
+
+    .action-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style> 

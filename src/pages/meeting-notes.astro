@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all meeting notes from the content collection
+const meetingNotes = await getCollection('meeting-notes');
+// Sort meeting notes by date (newest first)
+const sortedNotes = meetingNotes.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
 <Layout title="Meeting Notes">
@@ -32,71 +38,29 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <div class="notes-grid">
-      <article class="note-card">
-        <div class="note-date">
-          <span class="date-day">10</span>
-          <span class="date-month">May</span>
-          <span class="date-year">2024</span>
-        </div>
-        <div class="note-content">
-          <div class="note-meta">
-            <span class="note-category">Conservation</span>
-            <span class="note-duration">2 hours</span>
+      {sortedNotes.map((note) => (
+        <article class="note-card">
+          <div class="note-date">
+            <span class="date-day">{new Date(note.data.date).getDate()}</span>
+            <span class="date-month">{new Date(note.data.date).toLocaleDateString('en-US', { month: 'short' })}</span>
+            <span class="date-year">{new Date(note.data.date).getFullYear()}</span>
           </div>
-          <h2>Spring Conservation Planning</h2>
-          <p class="note-excerpt">
-            Detailed discussion of upcoming conservation projects, including habitat restoration and community engagement initiatives. Key decisions made regarding resource allocation and volunteer coordination.
-          </p>
-          <div class="note-actions">
-            <a href="/meeting-notes/spring-conservation-planning" class="note-button primary">Read Full Notes</a>
-            <a href="#" class="note-button secondary">Download PDF</a>
+          <div class="note-content">
+            <div class="note-meta">
+              <span class="note-category">{note.data.category}</span>
+              <span class="note-duration">{note.data.duration}</span>
+            </div>
+            <h2>{note.data.title}</h2>
+            <p class="note-excerpt">
+              {note.data.overview}
+            </p>
+            <div class="note-actions">
+              <a href={`/meeting-notes/${note.slug}`} class="note-button primary">Read Full Notes</a>
+              <a href="#" class="note-button secondary">Download PDF</a>
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article class="note-card">
-        <div class="note-date">
-          <span class="date-day">24</span>
-          <span class="date-month">Apr</span>
-          <span class="date-year">2024</span>
-        </div>
-        <div class="note-content">
-          <div class="note-meta">
-            <span class="note-category">Maintenance</span>
-            <span class="note-duration">1.5 hours</span>
-          </div>
-          <h2>Trail Maintenance Review</h2>
-          <p class="note-excerpt">
-            Comprehensive review of trail conditions across all major paths. Created maintenance schedule and prioritized repairs. Discussed safety measures and visitor guidelines.
-          </p>
-          <div class="note-actions">
-            <a href="/meeting-notes/trail-maintenance-review" class="note-button primary">Read Full Notes</a>
-            <a href="#" class="note-button secondary">Download PDF</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="note-card">
-        <div class="note-date">
-          <span class="date-day">15</span>
-          <span class="date-month">Mar</span>
-          <span class="date-year">2024</span>
-        </div>
-        <div class="note-content">
-          <div class="note-meta">
-            <span class="note-category">Planning</span>
-            <span class="note-duration">2.5 hours</span>
-          </div>
-          <h2>Annual Budget Planning</h2>
-          <p class="note-excerpt">
-            Review of current year's budget and planning for next fiscal year. Discussed funding priorities, new initiatives, and resource allocation strategies.
-          </p>
-          <div class="note-actions">
-            <a href="/meeting-notes/annual-budget-planning" class="note-button primary">Read Full Notes</a>
-            <a href="#" class="note-button secondary">Download PDF</a>
-          </div>
-        </div>
-      </article>
+        </article>
+      ))}
     </div>
 
     <div class="pagination">
